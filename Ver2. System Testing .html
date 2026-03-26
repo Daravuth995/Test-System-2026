@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IELTS Speaking Test — Secure Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Kantumruy+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ============================================================
+       DESIGN SYSTEM — SECURE EXAM PORTAL
+       ENHANCED: Refined glassmorphism, tighter spacing, premium feel
+    ============================================================ */
+    :root {
+      --bg:        #060a10;
+      --surface:   #0b1220;
+      --card:      #0f1a2e;
+      --card-hi:   #132035;
+      --border:    #1a2d45;
+      --border-hi: #243d5a;
+      --text:      #e8eef8;
+      --text-dim:  #a0b0c8;
+      --muted:     #566780;
+      --accent:    #00d4aa;
+      --accent-d:  #00a884;
+      --accent-glow: rgba(0,212,170,0.15);
+      --accent-glow-strong: rgba(0,212,170,0.25);
+      --danger:    #f5455c;
+      --danger-glow: rgba(245,69,92,0.15);
+      --warn:      #f59e0b;
+      --warn-glow: rgba(245,158,11,0.15);
+      --correct:   #22d67a;
+      --correct-glow: rgba(34,214,122,0.15);
+      --wrong:     #f5455c;
+      --radius:    12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --mono:      'DM Mono', monospace;
+      --sans:      'Space Grotesk', 'Kantumruy Pro', sans-serif;
+      --hdr:       64px;
+      --trans:     all 0.22s cubic-bezier(0.4,0,0.2,1);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+      --glass:     rgba(15,26,46,0.7);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+
+    /* ── Base ── */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .allow-select { user-select: text; -webkit-user-select: text; }
+    .hidden { display: none !important; }
+    .khmer { font-family: 'Kantumruy Pro', var(--sans); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
+
+    /* ── ENHANCED: Richer background with radial glow ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(0,212,170,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0,153,255,0.04) 0%, transparent 50%),
+        linear-gradient(rgba(0,212,170,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,170,0.018) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       LOGIN SCREEN — ENHANCED
+    ============================================================ */
+    #loginContainer {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+      animation: fadeIn 0.5s ease;
+    }
+
+    #loginBox {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-hi);
+      border-radius: var(--radius-xl);
+      padding: 2.8rem 2.6rem;
+      width: min(92vw, 420px);
+      position: relative;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,212,170,0.05) inset;
+      animation: slideUp 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ENHANCED: Multi-stop gradient top accent */
+    #loginBox::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), #7c3aed, var(--accent), transparent);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      opacity: 0.9;
+    }
+
+    .login-brand {
+      display: flex; align-items: center; gap: 0.9rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .login-brand-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #0099ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: #fff;
+      box-shadow: 0 4px 12px rgba(0,212,170,0.3);
+    }
+
+    .login-brand h2 {
+      font-size: 1.15rem; font-weight: 700; color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    .login-brand p {
+      font-size: 0.72rem; color: var(--muted);
+      font-family: var(--mono); letter-spacing: 0.5px;
+    }
+
+    /* ENHANCED: Floating label inputs */
+    .input-group {
+      position: relative; margin-bottom: 1.1rem;
+    }
+
+    .input-group input {
+      width: 100%; padding: 0.88rem 1rem 0.88rem 2.9rem;
+      background: rgba(11,18,32,0.8);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--sans); font-size: 0.95rem; font-weight: 500;
+      outline: none; transition: var(--trans);
+    }
+
+    .input-group input:focus {
+      border-color: var(--accent);
+      background: rgba(0,212,170,0.04);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .input-icon {
+      position: absolute; left: 0.95rem; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: 0.85rem; transition: var(--trans);
+      pointer-events: none;
+    }
+
+    .input-group input:focus ~ .input-icon { color: var(--accent); }
+
+    #loginBtn {
+      width: 100%; padding: 0.9rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      color: #060a10; border: none; border-radius: var(--radius);
+      font-family: var(--sans); font-size: 1rem; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.4px;
+      transition: var(--trans);
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+    }
+
+    #loginBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,170,0.35); }
+    #loginBtn:active { transform: translateY(0); }
+
+    #loginLoading { display: none; justify-content: center; margin-top: 1rem; }
+
+    .spinner {
+      width: 26px; height: 26px;
+      border: 2.5px solid var(--border-hi);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    #loginError {
+      margin-top: 0.8rem; padding: 0.75rem 1rem;
+      background: var(--danger-glow); border-left: 3px solid var(--danger);
+      border-radius: var(--radius); color: var(--danger);
+      font-size: 0.88rem; font-weight: 600; display: none;
+      animation: shake 0.4s ease;
+    }
+
+    #loginError.show { display: block; }
+
+    .login-footer {
+      margin-top: 1.5rem; padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      text-align: center; color: var(--muted); font-size: 0.76rem;
+      font-family: var(--mono);
+    }
+
+    .status-dot {
+      display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--accent);
+      margin-right: 5px; animation: pulse 2s infinite;
+    }
+
+    /* ============================================================
+       PRE-TEST INTEGRITY SCREEN
+    ============================================================ */
+    #integrityScreen {
+      position: fixed; inset: 0; z-index: 900;
+      background: var(--bg);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 2rem 1rem 3rem;
+      overflow-y: auto;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .integrity-box {
+      max-width: 680px; width: 100%;
+      border: 1px solid var(--border-hi);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .integrity-header {
+      background: linear-gradient(135deg, #0b1220, #0f1a2e);
+      border-bottom: 1px solid var(--border-hi);
+      padding: 2.2rem 2.5rem;
+      text-align: center;
+    }
+
+    .integrity-shield {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--danger-glow);
+      border: 2px solid var(--danger);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; color: var(--danger);
+      margin: 0 auto 1rem;
+      animation: lockPulse 2s infinite;
+    }
+
+    .integrity-header h2 { font-size: 1.55rem; font-weight: 700; color: var(--text); }
+    .integrity-header p { color: var(--muted); margin-top: 0.4rem; font-size: 0.9rem; }
+
+    .integrity-body {
+      background: var(--surface);
+      padding: 2rem 2.5rem;
+    }
+
+    .integrity-items {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 560px) { .integrity-items { grid-template-columns: 1fr; } }
+
+    .integrity-item {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 1rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      transition: var(--trans);
+    }
+
+    .integrity-item:hover { border-color: var(--border-hi); transform: translateY(-1px); }
+
+    .integrity-item-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--danger-glow); border: 1px solid var(--danger);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--danger); font-size: 0.85rem; flex-shrink: 0;
+    }
+
+    .integrity-item-text strong {
+      display: block; font-size: 0.85rem; font-weight: 600; color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .integrity-item-text span { font-size: 0.78rem; color: var(--muted); }
+
+    .integrity-consent {
+      padding: 1rem 1.2rem;
+      background: var(--card); border: 1px solid var(--border-hi);
+      border-radius: var(--radius); margin-bottom: 1.5rem;
+      font-size: 0.85rem; color: var(--muted); line-height: 1.7;
+    }
+
+    .integrity-consent strong { color: var(--text); }
+
+    #integrityStartBtn {
+      width: 100%; padding: 1rem;
+      background: var(--danger);
+      color: #fff; border: none; border-radius: var(--radius);
+      font-family: var(--sans); font-size: 1rem; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.4px;
+      transition: var(--trans);
+    }
+
+    #integrityStartBtn:disabled { background: var(--border-hi); color: var(--muted); cursor: not-allowed; }
+    #integrityStartBtn:not(:disabled):hover { background: #e03050; transform: translateY(-2px); }
+
+    .countdown-label {
+      text-align: center; margin-bottom: 0.8rem;
+      font-family: var(--mono); font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ============================================================
+       MODAL BASE
+    ============================================================ */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 2000; animation: fadeIn 0.3s ease;
+    }
+
+    .modal {
+      background: var(--card); border-radius: var(--radius-xl);
+      padding: 2.5rem; max-width: 700px; width: 92%;
+      border: 1px solid var(--border-hi);
+      box-shadow: var(--shadow-lg);
+      animation: scaleIn 0.3s cubic-bezier(0.16,1,0.3,1);
+      max-height: 90vh; overflow-y: auto;
+    }
+
+    .modal-title {
+      font-size: 1.4rem; font-weight: 700; color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+    .agreement-content {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      max-height: 280px; overflow-y: auto; margin-bottom: 1.5rem;
+      font-size: 0.88rem; line-height: 1.8; color: var(--muted);
+    }
+
+    .agreement-content h4 {
+      color: var(--accent); font-size: 0.82rem; text-transform: uppercase;
+      letter-spacing: 0.6px; margin: 1rem 0 0.5rem;
+    }
+
+    .agreement-content ul { padding-left: 1.2rem; }
+    .agreement-content li { margin-bottom: 0.4rem; }
+    .agreement-content li.critical { color: var(--danger); font-weight: 600; }
+
+    .toggle-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+    }
+
+    .toggle-switch { position: relative; width: 52px; height: 26px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider-pill {
+      position: absolute; inset: 0; cursor: pointer;
+      background: var(--border-hi); border-radius: 26px;
+      transition: var(--trans);
+    }
+
+    .slider-pill::before {
+      content: ''; position: absolute;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #fff; left: 3px; bottom: 3px;
+      transition: var(--trans);
+    }
+
+    input:checked + .slider-pill { background: var(--accent); }
+    input:checked + .slider-pill::before { transform: translateX(26px); }
+
+    .modal-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+    .modal-btn {
+      padding: 0.88rem 1.8rem; border-radius: var(--radius);
+      font-family: var(--sans); font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; border: none; transition: var(--trans);
+    }
+
+    .modal-btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      color: #060a10;
+      box-shadow: 0 4px 14px rgba(0,212,170,0.2);
+    }
+
+    .modal-btn.secondary {
+      background: var(--surface); color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .modal-btn:hover { transform: translateY(-2px); }
+
+    /* ============================================================
+       HEADER — ENHANCED
+    ============================================================ */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--hdr);
+      background: rgba(6,10,16,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; z-index: 800;
+    }
+
+    /* ENHANCED: subtle glow line under header */
+    .header::after {
+      content: '';
+      position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 30%, transparent 70%);
+      opacity: 0.3;
+    }
+
+    .header-brand {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-weight: 700; font-size: 1rem; color: var(--text);
+    }
+
+    .header-brand i { color: var(--accent); }
+
+    .secure-badge {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+      padding: 0.22rem 0.65rem; border-radius: 20px;
+      background: var(--accent-glow); color: var(--accent);
+      border: 1px solid rgba(0,212,170,0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .header-controls {
+      display: flex; align-items: center; gap: 1rem;
+    }
+
+    #focusIndicator {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+      color: var(--accent); padding: 0.28rem 0.75rem;
+      background: var(--accent-glow); border: 1px solid rgba(0,212,170,0.3);
+      border-radius: 20px;
+    }
+
+    #focusIndicator .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: pulse 1.5s infinite;
+    }
+
+    .timer-wrap { display: flex; align-items: center; gap: 0.6rem; }
+
+    #timerDisplay {
+      font-family: var(--mono); font-weight: 500; font-size: 0.98rem;
+      color: var(--text); letter-spacing: 1.5px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 0.32rem 0.8rem; border-radius: var(--radius);
+    }
+
+    #timerDisplay.warn { color: var(--warn); border-color: var(--warn); box-shadow: 0 0 8px var(--warn-glow); }
+    #timerDisplay.crit { color: var(--danger); border-color: var(--danger); box-shadow: 0 0 12px var(--danger-glow); animation: pulse 0.8s infinite; }
+
+    .progress-bar {
+      width: 110px; height: 4px;
+      background: var(--border); border-radius: 2px; overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%; background: var(--accent);
+      transition: width 1s linear, background 0.5s;
+      border-radius: 2px;
+    }
+
+    .progress-fill.warn { background: var(--warn); }
+    .progress-fill.crit { background: var(--danger); }
+
+    .lang-toggle {
+      display: flex; border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden; background: var(--surface);
+    }
+
+    .lang-opt {
+      padding: 0.28rem 0.75rem; font-size: 0.73rem; font-weight: 600;
+      cursor: pointer; color: var(--muted); transition: var(--trans);
+    }
+
+    .lang-opt.active { background: var(--accent); color: #060a10; }
+
+    /* ============================================================
+       STUDENT BAR — ENHANCED
+    ============================================================ */
+    .student-bar {
+      position: sticky; top: var(--hdr); z-index: 700;
+      background: rgba(11,18,32,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.7rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+
+    .avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #0099ff);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.82rem; color: #060a10; flex-shrink: 0;
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+
+    .student-meta { flex: 1; }
+    .student-name { font-weight: 700; font-size: 0.92rem; }
+    .student-id { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+
+    #warningCounter {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.75rem; font-weight: 600;
+      padding: 0.28rem 0.75rem; border-radius: 20px;
+      background: var(--warn-glow); color: var(--warn);
+      border: 1px solid rgba(245,158,11,0.3);
+    }
+
+    #warningCounter.w3 {
+      background: var(--danger-glow); color: var(--danger);
+      border-color: rgba(245,69,92,0.3); animation: pulse 0.8s infinite;
+    }
+
+    #behaviorDisplay {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+      padding: 0.28rem 0.75rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 20px;
+    }
+
+    /* ENHANCED: Anti-cheat status indicator */
+    #anticheatStatus {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-family: var(--mono); font-size: 0.68rem; color: var(--correct);
+      padding: 0.28rem 0.7rem; background: var(--correct-glow);
+      border: 1px solid rgba(34,214,122,0.3); border-radius: 20px;
+    }
+
+    #anticheatStatus.warn { color: var(--warn); background: var(--warn-glow); border-color: rgba(245,158,11,0.3); }
+    #anticheatStatus.crit { color: var(--danger); background: var(--danger-glow); border-color: rgba(245,69,92,0.3); }
+
+    /* ============================================================
+       ONE-QUESTION-PER-SCREEN FLOW
+    ============================================================ */
+    #testArea {
+      max-width: 780px; margin: 0 auto;
+      padding: calc(var(--hdr) + 100px) 1.5rem 4rem;
+    }
+
+    .q-progress-strip {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .q-step-counter {
+      font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .q-steps {
+      flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden;
+    }
+
+    .q-steps-fill {
+      height: 100%; background: var(--accent); border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .q-timer-row {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .q-timer-label { font-family: var(--mono); font-size: 0.76rem; color: var(--muted); }
+
+    .q-timer-bar {
+      flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden;
+    }
+
+    .q-timer-fill {
+      height: 100%; background: var(--accent); border-radius: 3px;
+      transition: width 1s linear, background 0.3s;
+    }
+
+    .q-timer-fill.warn { background: var(--warn); }
+    .q-timer-fill.crit { background: var(--danger); }
+
+    .q-timer-count {
+      font-family: var(--mono); font-weight: 500; font-size: 0.88rem;
+      min-width: 34px; text-align: right; color: var(--text-dim);
+    }
+
+    .q-timer-count.warn { color: var(--warn); }
+    .q-timer-count.crit { color: var(--danger); }
+
+    /* ENHANCED: Question card with glass effect */
+    .question-card {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-hi);
+      border-radius: var(--radius-xl);
+      padding: 2.2rem;
+      box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,212,170,0.04) inset;
+      animation: slideUp 0.38s cubic-bezier(0.16,1,0.3,1);
+      position: relative; overflow: hidden;
+    }
+
+    .question-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), #7c3aed, var(--accent));
+      opacity: 0.7;
+    }
+
+    .question-number {
+      font-family: var(--mono); font-size: 0.75rem; color: var(--accent);
+      letter-spacing: 0.8px; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .q-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+
+    .question-text {
+      font-size: 1.08rem; font-weight: 500; line-height: 1.75;
+      color: var(--text); margin-bottom: 1.8rem;
+    }
+
+    /* ENHANCED: Option cards */
+    .options-container { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .option {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: rgba(11,18,32,0.6);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius); cursor: pointer;
+      transition: var(--trans);
+      position: relative; overflow: hidden;
+    }
+
+    .option::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent-glow);
+      opacity: 0; transition: opacity 0.22s;
+    }
+
+    .option:hover {
+      border-color: rgba(0,212,170,0.5);
+      transform: translateX(3px);
+    }
+
+    .option:hover::before { opacity: 1; }
+
+    .option.selected {
+      border-color: var(--accent);
+      background: rgba(0,212,170,0.08);
+      box-shadow: 0 0 0 1px var(--accent-glow) inset;
+    }
+
+    .option.locked { pointer-events: none; opacity: 0.75; }
+    .option.locked.selected { opacity: 1; }
+
+    .option input[type="radio"] {
+      width: 17px; height: 17px; accent-color: var(--accent); flex-shrink: 0;
+    }
+
+    .opt-label { font-weight: 700; color: var(--accent); font-size: 0.88rem; min-width: 22px; }
+
+    /* Drag-drop */
+    .drag-drop-options { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1.5rem; }
+
+    .drag-option {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 25px; padding: 0.6rem 1.2rem;
+      cursor: grab; font-size: 0.9rem; font-weight: 600;
+      transition: var(--trans);
+    }
+
+    .drag-option:hover {
+      background: var(--accent); color: #060a10;
+      border-color: var(--accent); transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,212,170,0.25);
+    }
+
+    .drag-drop-target {
+      min-height: 70px; border: 2px dashed var(--border-hi);
+      border-radius: var(--radius); padding: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.9rem; transition: var(--trans);
+    }
+
+    .drag-drop-target.active { border-color: var(--accent); background: var(--accent-glow); }
+    .drag-drop-target.has-item { border-style: solid; border-color: var(--correct); background: var(--correct-glow); }
+
+    /* Audio */
+    .audio-container {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.1rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      margin-bottom: 1.2rem;
+    }
+
+    .audio-btn {
+      width: 42px; height: 42px; border-radius: 50%; border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      color: #060a10; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: var(--trans); flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(0,212,170,0.25);
+    }
+
+    .audio-btn:hover { transform: scale(1.1); box-shadow: 0 5px 16px rgba(0,212,170,0.35); }
+    .audio-btn.playing { animation: pulse 1.5s infinite; }
+
+    /* Navigation */
+    .question-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 1.8rem; flex-wrap: wrap; gap: 1rem;
+    }
+
+    .nav-btn {
+      padding: 0.88rem 2rem; border-radius: var(--radius);
+      font-family: var(--sans); font-weight: 700; font-size: 0.95rem;
+      border: none; cursor: pointer; transition: var(--trans);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .nav-btn.next {
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      color: #060a10;
+      box-shadow: 0 4px 14px rgba(0,212,170,0.2);
+    }
+
+    .nav-btn.next:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; box-shadow: none; }
+    .nav-btn.next:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,170,0.3); }
+
+    .nav-btn.submit-final {
+      background: linear-gradient(135deg, #7c3aed, #5b21b6);
+      color: #fff; box-shadow: 0 4px 14px rgba(124,58,237,0.25);
+    }
+
+    .nav-btn.submit-final:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.35); }
+
+    .skipped-label { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+
+    .answer-hint {
+      text-align: center; margin-top: 0.8rem;
+      font-family: var(--mono); font-size: 0.76rem; color: var(--muted);
+    }
+
+    /* ============================================================
+       FOCUS OVERLAY
+    ============================================================ */
+    #focusOverlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.96); backdrop-filter: blur(20px);
+      z-index: 3000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem; animation: fadeIn 0.3s ease;
+    }
+
+    .focus-overlay-box {
+      background: var(--card); border-radius: var(--radius-xl);
+      padding: 3rem 2.5rem; max-width: 500px; width: 100%; text-align: center;
+      animation: scaleIn 0.35s cubic-bezier(0.16,1,0.3,1);
+      border: 2px solid var(--warn);
+      box-shadow: 0 0 50px var(--warn-glow);
+    }
+
+    .focus-overlay-box.danger-mode {
+      border-color: var(--danger);
+      box-shadow: 0 0 50px var(--danger-glow);
+    }
+
+    .focus-overlay-icon { font-size: 3.2rem; margin-bottom: 1.2rem; }
+    .focus-overlay-box.danger-mode .focus-overlay-icon { color: var(--danger); }
+    .focus-overlay-box:not(.danger-mode) .focus-overlay-icon { color: var(--warn); }
+
+    .focus-overlay-title {
+      font-size: 1.45rem; font-weight: 700; color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .focus-overlay-msg {
+      color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem;
+      font-size: 0.93rem;
+    }
+
+    .violation-tally {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .violation-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 2px solid var(--border-hi); transition: var(--trans);
+    }
+
+    .violation-dot.filled { background: var(--danger); border-color: var(--danger); box-shadow: 0 0 8px rgba(245,69,92,0.4); }
+
+    .focus-return-btn {
+      padding: 0.9rem 2.5rem; border-radius: var(--radius);
+      background: var(--warn); color: #060a10;
+      border: none; font-family: var(--sans); font-weight: 700;
+      cursor: pointer; transition: var(--trans); font-size: 0.95rem;
+    }
+
+    .focus-overlay-box.danger-mode .focus-return-btn { background: var(--danger); color: #fff; }
+    .focus-return-btn:hover { transform: translateY(-2px); }
+
+    /* ============================================================
+       TEST BLOCKED OVERLAY
+    ============================================================ */
+    #testBlockedOverlay {
+      position: fixed; inset: 0; z-index: 4000;
+      background: rgba(0,0,0,0.98); backdrop-filter: blur(24px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem; animation: fadeIn 0.4s ease;
+    }
+
+    .blocked-box {
+      background: var(--card); border-radius: var(--radius-xl);
+      padding: 3.5rem 2.5rem; max-width: 580px; width: 100%; text-align: center;
+      border: 2px solid var(--danger);
+      box-shadow: 0 0 80px var(--danger-glow);
+      animation: scaleIn 0.4s cubic-bezier(0.16,1,0.3,1);
+      position: relative; overflow: hidden;
+    }
+
+    .blocked-box::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 12px,
+        rgba(245,69,92,0.03) 12px, rgba(245,69,92,0.03) 24px
+      );
+      pointer-events: none;
+    }
+
+    .blocked-lock { font-size: 3.8rem; color: var(--danger); margin-bottom: 1.5rem; animation: shake 0.6s ease infinite; }
+    .blocked-title { font-size: 1.9rem; font-weight: 800; color: var(--danger); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+    .blocked-msg { color: var(--muted); line-height: 1.7; font-size: 0.93rem; margin-bottom: 1.5rem; }
+
+    .consequence-box {
+      background: var(--danger-glow); border: 1px solid rgba(245,69,92,0.3);
+      border-radius: var(--radius); padding: 1.2rem 1.5rem;
+      text-align: left; margin-bottom: 1.5rem;
+    }
+
+    .consequence-box h4 { color: var(--danger); margin-bottom: 0.6rem; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .consequence-box li { color: var(--muted); font-size: 0.88rem; margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative; }
+    .consequence-box li::before { content: '⛔'; position: absolute; left: -0.2rem; font-size: 0.72rem; }
+
+    .blocked-footer { font-family: var(--mono); font-size: 0.76rem; color: var(--muted); }
+
+    /* ============================================================
+       SCORE MODAL — SIGNIFICANTLY ENHANCED
+       Shows: Q number, user answer, correct answer, clear indicators
+    ============================================================ */
+    .score-modal {
+      max-width: 960px; padding: 0; border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .score-header {
+      background: linear-gradient(135deg, #0b1220, #0f1a2e);
+      border-bottom: 1px solid var(--border-hi);
+      padding: 2.2rem 2.5rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      position: relative;
+    }
+
+    /* ENHANCED: Accent line on score header */
+    .score-header::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), #7c3aed);
+    }
+
+    .score-avatar {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #0099ff);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.3rem; color: #060a10; flex-shrink: 0;
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .score-user-name { font-size: 1.3rem; font-weight: 700; }
+    .score-user-id { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+    .score-main { padding: 2.2rem 2.5rem; background: var(--card); }
+
+    .score-summary {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.9rem; margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.4rem; text-align: center;
+      transition: var(--trans);
+    }
+
+    .summary-card:hover { transform: translateY(-3px); }
+    .summary-card.correct { border-color: rgba(34,214,122,0.4); background: var(--correct-glow); }
+    .summary-card.wrong   { border-color: rgba(245,69,92,0.4); background: var(--danger-glow); }
+    .summary-card.total   { border-color: rgba(0,212,170,0.4); background: var(--accent-glow); }
+
+    .summary-value {
+      font-family: var(--mono); font-weight: 700; font-size: 2.2rem; line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .summary-card.correct .summary-value { color: var(--correct); }
+    .summary-card.wrong   .summary-value { color: var(--danger); }
+    .summary-card.total   .summary-value { color: var(--accent); }
+
+    .summary-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); }
+
+    /* ENHANCED: Breakdown now shows user answer + correct answer */
+    .score-breakdown { margin-top: 1.5rem; }
+
+    .breakdown-title {
+      font-weight: 700; font-size: 0.85rem; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* ENHANCED: Table-style breakdown for clarity */
+    .breakdown-table {
+      width: 100%; border-collapse: separate; border-spacing: 0 5px;
+    }
+
+    .breakdown-table thead th {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 0 1rem 0.5rem; text-align: left;
+    }
+
+    .breakdown-table thead th:first-child { width: 80px; }
+    .breakdown-table thead th:nth-child(2), 
+    .breakdown-table thead th:nth-child(3) { width: 100px; }
+
+    .breakdown-row {
+      background: var(--surface);
+      border-radius: var(--radius);
+      transition: var(--trans);
+    }
+
+    .breakdown-row:hover { transform: translateX(3px); }
+    .breakdown-row.correct td { border-left: 3px solid var(--correct); }
+    .breakdown-row.wrong td { border-left: 3px solid var(--danger); }
+    .breakdown-row.correct td:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+
+    .breakdown-row td {
+      padding: 0.75rem 1rem; font-size: 0.88rem;
+    }
+
+    .breakdown-row td:first-child {
+      border-radius: var(--radius) 0 0 var(--radius);
+      font-weight: 700; color: var(--text-dim);
+      font-family: var(--mono); font-size: 0.8rem;
+    }
+
+    .breakdown-row td:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+
+    .ans-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.2rem 0.6rem; border-radius: 6px;
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
+    }
+
+    .ans-badge.user-correct { background: var(--correct-glow); color: var(--correct); border: 1px solid rgba(34,214,122,0.3); }
+    .ans-badge.user-wrong   { background: var(--danger-glow);  color: var(--danger);  border: 1px solid rgba(245,69,92,0.3); }
+    .ans-badge.correct-ans  { background: var(--accent-glow);  color: var(--accent);  border: 1px solid rgba(0,212,170,0.3); }
+    .ans-badge.skipped      { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+
+    .status-icon { font-size: 0.9rem; }
+
+    /* Behavior report */
+    .behavior-report {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.2rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: var(--mono); font-size: 0.82rem; color: var(--muted);
+    }
+
+    .behavior-report h4 {
+      color: var(--accent); font-size: 0.78rem; text-transform: uppercase;
+      letter-spacing: 0.6px; margin-bottom: 0.8rem;
+    }
+
+    .behavior-report table { width: 100%; border-collapse: collapse; }
+    .behavior-report td { padding: 0.32rem 0; }
+    .behavior-report td:last-child { text-align: right; color: var(--text); }
+
+    .score-actions {
+      display: flex; gap: 0.8rem; padding: 1.4rem 2.5rem;
+      background: var(--surface); border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 0.82rem 1.8rem; border-radius: var(--radius);
+      font-family: var(--sans); font-weight: 700; border: none;
+      cursor: pointer; transition: var(--trans);
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.92rem;
+    }
+
+    .action-btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #060a10; box-shadow: 0 4px 12px rgba(0,212,170,0.2); }
+    .action-btn.secondary { background: var(--card); color: var(--muted); border: 1px solid var(--border); }
+    .action-btn:hover { transform: translateY(-2px); }
+
+    /* ============================================================
+       TOASTS — ENHANCED
+    ============================================================ */
+    #toastContainer {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      z-index: 9999; display: flex; flex-direction: column; gap: 0.6rem;
+      max-width: 340px;
+    }
+
+    .toast {
+      background: var(--card); color: var(--text);
+      padding: 0.9rem 1.1rem; border-radius: var(--radius);
+      border-left: 3px solid var(--accent);
+      box-shadow: var(--shadow-md);
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.86rem; backdrop-filter: blur(12px);
+      animation: slideInRight 0.3s cubic-bezier(0.16,1,0.3,1), fadeOut 0.3s ease 4.7s forwards;
+    }
+
+    .toast.warn { border-left-color: var(--warn); }
+    .toast.crit { border-left-color: var(--danger); }
+    .toast.ok   { border-left-color: var(--correct); }
+
+    .toast i { font-size: 0.95rem; flex-shrink: 0; }
+    .toast.warn i { color: var(--warn); }
+    .toast.crit i { color: var(--danger); }
+    .toast.ok   i { color: var(--correct); }
+
+    /* ============================================================
+       RESTRICTION MODAL
+    ============================================================ */
+    .restriction-modal { max-width: 400px; text-align: center; }
+    .restriction-modal i { font-size: 2.8rem; color: var(--danger); margin-bottom: 1rem; }
+
+    /* ============================================================
+       IDLE WARNING BANNER — NEW
+    ============================================================ */
+    #idleWarningBanner {
+      position: fixed; top: var(--hdr); left: 0; right: 0;
+      background: linear-gradient(90deg, var(--warn-glow), transparent);
+      border-bottom: 1px solid rgba(245,158,11,0.3);
+      padding: 0.5rem 1.5rem;
+      display: flex; align-items: center; gap: 0.7rem;
+      font-family: var(--mono); font-size: 0.78rem; color: var(--warn);
+      z-index: 750; animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ============================================================
+       ANIMATIONS
+    ============================================================ */
+    @keyframes fadeIn    { from{opacity:0} to{opacity:1} }
+    @keyframes fadeOut   { from{opacity:1} to{opacity:0;pointer-events:none} }
+    @keyframes slideUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes scaleIn   { from{opacity:0;transform:scale(0.94)} to{opacity:1;transform:scale(1)} }
+    @keyframes slideInRight { from{opacity:0;transform:translateX(60px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes spin      { to{transform:rotate(360deg)} }
+    @keyframes shake {
+      0%,100%{transform:translateX(0)}
+      20%,60%{transform:translateX(-5px)}
+      40%,80%{transform:translateX(5px)}
+    }
+    @keyframes pulse {
+      0%,100%{opacity:1;transform:scale(1)}
+      50%{opacity:0.7;transform:scale(1.04)}
+    }
+    @keyframes lockPulse {
+      0%,100%{box-shadow:0 0 0 0 var(--danger-glow)}
+      50%{box-shadow:0 0 0 10px transparent}
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 680px) {
+      .header-controls { gap: 0.5rem; }
+      .progress-bar    { display: none; }
+      #testArea        { padding-top: calc(var(--hdr) + 115px); padding-left: 1rem; padding-right: 1rem; }
+      .question-card   { padding: 1.4rem 1.2rem; }
+      .score-header    { flex-direction: column; text-align: center; }
+      .score-actions   { flex-direction: column; }
+      .student-bar     { flex-wrap: wrap; gap: 0.7rem; }
+      .nav-btn         { padding: 0.85rem 1.4rem; font-size: 0.9rem; }
+      #anticheatStatus { display: none; }
+      .breakdown-table thead th:nth-child(2),
+      .breakdown-table thead th:nth-child(3) { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      #loginBox { padding: 2rem 1.5rem; }
+      .score-summary { grid-template-columns: 1fr 1fr; }
+      .integrity-body { padding: 1.5rem; }
+    }
+  </style>
+
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════ -->
+
+<div class="header" id="header">
+  <div class="header-brand">
+    <i class="fa-solid fa-shield-halved"></i>
+    <span>IELTS Secure Test</span>
+  </div>
+
+  <div class="header-controls">
+    <div id="focusIndicator" class="hidden">
+      <div class="dot"></div>
+      <span>FOCUS ACTIVE</span>
+    </div>
+
+```
+<div class="lang-toggle" id="langToggle">
+  <div class="lang-opt active" data-lang="english">EN</div>
+  <div class="lang-opt" data-lang="khmer">ខ្មែរ</div>
+</div>
+
+<div class="timer-wrap">
+  <i class="fas fa-clock" style="color:var(--muted);font-size:0.82rem;"></i>
+  <span id="timerDisplay">01:00:00</span>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width:100%"></div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     STUDENT BAR
+═══════════════════════════════════════════ -->
+
+<div class="student-bar hidden" id="studentBar">
+  <div class="avatar" id="avatar">--</div>
+  <div class="student-meta">
+    <div class="student-name" id="studentName">—</div>
+    <div class="student-id" id="studentIdDisplay">—</div>
+  </div>
+  <div id="warningCounter" class="hidden">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span>Warnings: <span id="warningCountDisplay">0</span>/3</span>
+  </div>
+  <!-- ENHANCED: Added anti-cheat status badge -->
+  <div id="anticheatStatus">
+    <i class="fas fa-shield-check" style="font-size:0.7rem"></i>
+    MONITORING
+  </div>
+  <div id="behaviorDisplay">Q: — | ⏱ 0s</div>
+</div>
+
+<!-- IDLE WARNING BANNER (hidden by default) -->
+
+<div id="idleWarningBanner" class="hidden">
+  <i class="fas fa-hourglass-half"></i>
+  <span id="idleWarningText">No activity detected. Are you still there?</span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LOGIN
+═══════════════════════════════════════════ -->
+
+<div id="loginContainer">
+  <form id="loginBox" onsubmit="event.preventDefault(); login();">
+    <div class="login-brand">
+      <div class="login-brand-icon"><i class="fas fa-book-open-reader"></i></div>
+      <div>
+        <h2 id="loginTitle">Test Portal Login</h2>
+        <p>IELTS-STYLE EXAM SYSTEM</p>
+      </div>
+    </div>
+
+```
+<div class="input-group">
+  <input type="text" id="studentId" placeholder="Student ID" required autocomplete="username" class="allow-select">
+  <i class="fas fa-user input-icon"></i>
+</div>
+
+<div class="input-group">
+  <input type="password" id="password" placeholder="Password" required autocomplete="current-password" class="allow-select">
+  <i class="fas fa-lock input-icon"></i>
+</div>
+
+<button id="loginBtn" type="submit">Login</button>
+<div id="loginLoading"><div class="spinner"></div></div>
+<div id="loginError"></div>
+
+<div class="login-footer">
+  <span class="status-dot"></span>
+  <span id="loginFooterText">Monitoring Active · Secure Session</span>
+</div>
+```
+
+  </form>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PRE-TEST INTEGRITY SCREEN
+═══════════════════════════════════════════ -->
+
+<div id="integrityScreen" class="hidden">
+  <div class="integrity-box">
+    <div class="integrity-header">
+      <div class="integrity-shield"><i class="fas fa-shield-exclamation"></i></div>
+      <h2 id="integrityTitle">Test Integrity Policy</h2>
+      <p id="integritySubtitle">Read carefully before proceeding</p>
+    </div>
+    <div class="integrity-body">
+      <div class="integrity-items" id="integrityItems"></div>
+      <div class="integrity-consent" id="integrityConsent"></div>
+      <div class="countdown-label" id="countdownLabel">Please read the above. Starting in <strong id="cdNum">10</strong>s...</div>
+      <button id="integrityStartBtn" disabled>Start Test</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     AGREEMENT MODAL
+═══════════════════════════════════════════ -->
+
+<div id="agreementOverlay" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-title" id="agreementTitle">Test Agreement & Policy</div>
+    <div class="modal-subtitle">Review the rules before you begin</div>
+    <div class="agreement-content" id="agreementContent"></div>
+    <div class="toggle-row">
+      <label class="toggle-switch">
+        <input type="checkbox" id="agreeCheckbox">
+        <span class="slider-pill"></span>
+      </label>
+      <label for="agreeCheckbox" id="agreeLabel">I have read and agree to all terms</label>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn primary" id="agreeBtn">I Agree — Start Test</button>
+      <button class="modal-btn secondary" id="disagreeBtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     RESTRICTION MODAL
+═══════════════════════════════════════════ -->
+
+<div id="restrictionOverlay" class="modal-overlay hidden">
+  <div class="modal restriction-modal">
+    <i class="fas fa-ban"></i>
+    <div class="modal-title" id="restrictionTitle">Access Restricted</div>
+    <p id="restrictionMessage" style="color:var(--muted);margin:1rem 0;"></p>
+    <div class="modal-actions" style="justify-content:center">
+      <button class="modal-btn secondary" id="restrictionOkBtn">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TEST AREA (one question per screen)
+═══════════════════════════════════════════ -->
+
+<div id="testArea" class="hidden">
+  <div class="q-progress-strip">
+    <div class="q-step-counter" id="stepCounter">Question 1 of ?</div>
+    <div class="q-steps"><div class="q-steps-fill" id="stepsFill" style="width:0%"></div></div>
+  </div>
+
+  <div class="q-timer-row" id="qTimerRow">
+    <span class="q-timer-label">Time left:</span>
+    <div class="q-timer-bar"><div class="q-timer-fill" id="qTimerFill" style="width:100%"></div></div>
+    <span class="q-timer-count" id="qTimerCount">30s</span>
+  </div>
+
+  <div id="questionHolder"></div>
+
+  <div class="question-nav" id="questionNav">
+    <span class="skipped-label" id="skippedLabel"></span>
+    <button class="nav-btn next" id="nextBtn" disabled>
+      Next <i class="fas fa-arrow-right"></i>
+    </button>
+  </div>
+  <div class="answer-hint" id="answerHint">Select an answer to continue</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOCUS WARNING OVERLAY
+═══════════════════════════════════════════ -->
+
+<div id="focusOverlay" class="hidden">
+  <div class="focus-overlay-box" id="focusBox">
+    <div class="focus-overlay-icon"><i class="fas fa-eye-slash"></i></div>
+    <div class="focus-overlay-title" id="focusTitle">Focus Mode Violated</div>
+    <div class="focus-overlay-msg" id="focusMsg">You left the test screen. This action has been recorded.</div>
+    <div class="violation-tally" id="violationTally">
+      <div class="violation-dot" id="vd1"></div>
+      <div class="violation-dot" id="vd2"></div>
+      <div class="violation-dot" id="vd3"></div>
+    </div>
+    <button class="focus-return-btn" id="focusReturnBtn">Return to Test</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TEST BLOCKED
+═══════════════════════════════════════════ -->
+
+<div id="testBlockedOverlay" class="hidden">
+  <div class="blocked-box">
+    <div class="blocked-lock"><i class="fas fa-lock"></i></div>
+    <div class="blocked-title" id="blockedTitle">Test Blocked</div>
+    <div class="blocked-msg" id="blockedMsg">Your test has been terminated due to repeated policy violations.</div>
+    <div class="consequence-box">
+      <h4 id="consequenceTitle">Consequences Applied</h4>
+      <ul>
+        <li id="c1">Score recorded as 0</li>
+        <li id="c2">Test attempt marked as invalid</li>
+        <li id="c3">Violations will be reported</li>
+        <li id="c4">No restart or retry available</li>
+      </ul>
+    </div>
+    <div class="blocked-footer" id="blockedFooter">
+      <i class="fas fa-shield-alt"></i> Monitoring was active throughout your session.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCORE MODAL — ENHANCED
+═══════════════════════════════════════════ -->
+
+<div id="scoreModal" class="modal-overlay hidden">
+  <div class="modal score-modal">
+    <div class="score-header">
+      <div class="score-avatar" id="scoreAvatar">--</div>
+      <div>
+        <div class="score-user-name" id="scoreUserName">—</div>
+        <div class="score-user-id" id="scoreUserId">—</div>
+      </div>
+    </div>
+    <div class="score-main">
+      <div class="score-summary">
+        <div class="summary-card total">
+          <div class="summary-value" id="finalScore">0</div>
+          <div class="summary-label" id="lbl_totalScore">Total Score</div>
+        </div>
+        <div class="summary-card correct">
+          <div class="summary-value" id="correctAnswers">0</div>
+          <div class="summary-label" id="lbl_correct">Correct</div>
+        </div>
+        <div class="summary-card wrong">
+          <div class="summary-value" id="wrongAnswers">0</div>
+          <div class="summary-label" id="lbl_wrong">Wrong</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-value" id="accuracyRate">0%</div>
+          <div class="summary-label" id="lbl_accuracy">Accuracy</div>
+        </div>
+      </div>
+
+```
+  <!-- ENHANCED breakdown with user answer + correct answer columns -->
+  <div class="score-breakdown">
+    <div class="breakdown-title">
+      <i class="fas fa-list-check"></i>
+      <span id="lbl_breakdown">Question Breakdown</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="breakdown-table" id="breakdownTable">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Your Answer</th>
+            <th>Correct Answer</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="breakdownList"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="behavior-report" id="behaviorReport">
+    <h4><i class="fas fa-chart-bar"></i> Session Behaviour Report</h4>
+    <table>
+      <tr><td>Tab Switches</td><td id="br_tabs">—</td></tr>
+      <tr><td>Copy/Paste Attempts</td><td id="br_copy">—</td></tr>
+      <tr><td>Avg. Time per Question</td><td id="br_avgtime">—</td></tr>
+      <tr><td>Total Test Duration</td><td id="br_duration">—</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="score-actions">
+  <button class="action-btn primary" id="screenshotBtn"><i class="fas fa-camera"></i> Save Result</button>
+  <button class="action-btn secondary" id="closeScoreBtn"><i class="fas fa-times"></i> Close</button>
+</div>
+```
+
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════ -->
+
+<script>
+/* ============================================================
+   CONFIG — UNCHANGED
+============================================================ */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQknsM0MJwRmoTGPai-_E2OSMb9FPxK7UsexqmpXZAqelyw99guEhjhNQn9hCL0m5uTg/exec";
+const QUESTION_TIME = 30;
+
+/* ============================================================
+   STATE — UNCHANGED
+============================================================ */
+let studentId = '', password = '';
+let allQuestions      = [];
+let shuffledQuestions = [];
+let currentQIndex     = 0;
+let answers           = [];
+let questionStartTimes = [];
+let questionDurations  = [];
+
+let testTimer, qTimerInterval;
+let testDuration = 3600;
+let timeLeft     = testDuration;
+let startTime = null, endTime = null;
+let testRunning   = false;
+let isTestBlocked = false;
+
+// Anti-cheat state
+let violationCount  = 0;
+let copyPasteCount  = 0;
+let tabSwitchCount  = 0;
+let lastFocusTime   = Date.now();
+
+let frontEndStartMs = null;
+let currentLanguage = localStorage.getItem('testLanguage') || 'english';
+let currentAudio = null, currentAudioIndex = null;
+
+/* ============================================================
+   ANTI-CHEAT ADDITIONS — NEW
+   - DevTools detection
+   - Fullscreen exit detection
+   - Idle detection (60s)
+============================================================ */
+let idleTimer = null;
+let idleWarningShown = false;
+const IDLE_THRESHOLD = 60000; // 60 seconds
+
+// [ANTI-CHEAT ADD] DevTools detection via window size delta
+let devToolsCheckInterval = null;
+const DEVTOOLS_THRESHOLD = 160;
+
+function startDevToolsDetection() {
+  devToolsCheckInterval = setInterval(() => {
+    if (!testRunning || isTestBlocked) return;
+    const widthDiff  = window.outerWidth  - window.innerWidth;
+    const heightDiff = window.outerHeight - window.innerHeight;
+    if (widthDiff > DEVTOOLS_THRESHOLD || heightDiff > DEVTOOLS_THRESHOLD) {
+      showToast('Developer tools detected. This has been recorded.', 'crit');
+      updateAnticheatStatus('crit');
+      // Count as a soft violation (log but don't auto-block)
+      copyPasteCount++;
+      updateBehaviorDisplay(currentQIndex + 1, allQuestions.length);
+    }
+  }, 3000);
+}
+
+// [ANTI-CHEAT ADD] Fullscreen exit detection
+function initFullscreenDetection() {
+  document.addEventListener('fullscreenchange', () => {
+    if (!testRunning || isTestBlocked) return;
+    if (!document.fullscreenElement) {
+      // Not a violation on its own but log it
+      showToast('Fullscreen exited. Please stay focused on the test.', 'warn');
+      updateAnticheatStatus('warn');
+    }
+  });
+}
+
+// [ANTI-CHEAT ADD] Idle detection
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  if (idleWarningShown) {
+    hideIdleWarning();
+    idleWarningShown = false;
+  }
+  if (!testRunning || isTestBlocked) return;
+  idleTimer = setTimeout(() => {
+    showIdleWarning();
+    idleWarningShown = true;
+    updateAnticheatStatus('warn');
+  }, IDLE_THRESHOLD);
+}
+
+function showIdleWarning() {
+  const banner = document.getElementById('idleWarningBanner');
+  if (banner) {
+    banner.classList.remove('hidden');
+    document.getElementById('idleWarningText').textContent =
+      currentLanguage === 'khmer'
+        ? 'គ្មានសកម្មភាព។ តើអ្នកនៅទីនោះទេ?'
+        : 'No activity detected for 60s. Are you still there?';
+  }
+}
+
+function hideIdleWarning() {
+  const banner = document.getElementById('idleWarningBanner');
+  if (banner) banner.classList.add('hidden');
+}
+
+function initIdleDetection() {
+  ['mousemove','mousedown','keydown','touchstart','scroll','click'].forEach(evt => {
+    document.addEventListener(evt, resetIdleTimer, { passive: true });
+  });
+}
+
+// [ANTI-CHEAT ADD] Anti-cheat status badge updater
+function updateAnticheatStatus(level) {
+  const el = document.getElementById('anticheatStatus');
+  if (!el) return;
+  el.className = level ? `${level}` : '';
+  const icons = { '': 'fa-shield-check', warn: 'fa-shield-exclamation', crit: 'fa-shield-xmark' };
+  const labels = { '': 'MONITORING', warn: 'ALERT', crit: 'VIOLATION' };
+  el.innerHTML = `<i class="fas ${icons[level] || 'fa-shield-check'}" style="font-size:0.7rem"></i> ${labels[level] || 'MONITORING'}`;
+}
+
+/* ============================================================
+   TRANSLATIONS — UNCHANGED
+============================================================ */
+const T = {
+  english: {
+    loginTitle:"Test Portal Login",
+    loginFooter:"Monitoring Active · Secure Session",
+    integrityTitle:"Test Integrity Policy",
+    integritySub:"Read carefully before proceeding",
+    integrityItems:[
+      {icon:"fa-eye",        title:"Screen Monitoring",  desc:"Tab switching is tracked in real time"},
+      {icon:"fa-copy",       title:"No Copy / Paste",    desc:"Disabled for all test inputs"},
+      {icon:"fa-clock",      title:"Per-Question Timer", desc:"Each question has a time limit"},
+      {icon:"fa-ban",        title:"3-Strike Rule",      desc:"3 violations = auto-submit, score 0"},
+    ],
+    integrityConsent:"By clicking <strong>Start Test</strong> you acknowledge that activity monitoring is active and all your responses are your own original work. Any detected violation is logged and may result in test termination.",
+    cdLabel:"Please read the above. Starting in",
+    startBtn:"Start Test",
+    agreeTitle:"Test Agreement & Policy",
+    agreeLabel:"I have read and agree to all terms",
+    agreeBtn:"I Agree — Start Test",
+    cancelBtn:"Cancel",
+    focusActive:"FOCUS ACTIVE",
+    warnTitle1:"Focus Mode Violated",
+    warnMsg1:"You left the test screen. This action has been recorded. Warning 1 of 3.",
+    warnTitle2:"Second Violation Detected",
+    warnMsg2:"Another tab switch was detected. One more violation will terminate your test. Warning 2 of 3.",
+    warnTitle3:"Final Warning",
+    warnMsg3:"This is your last warning. The next violation will immediately block your test and record a score of 0.",
+    returnBtn:"Return to Test",
+    blockedTitle:"Test Access Blocked",
+    blockedMsg:"Your test has been terminated due to repeated policy violations.",
+    consTitle:"Consequences Applied",
+    c1:"Score recorded as 0 (zero)",
+    c2:"Test attempt marked as invalid",
+    c3:"Further violations will be reported",
+    c4:"No restart or retry available",
+    blockedFooter:"Monitoring was active throughout your session.",
+    copyWarn:"Copy/Paste is not allowed during the test.",
+    timeWarn15:"15 minutes remaining",
+    timeWarn5:"5 minutes remaining — review your answers",
+    timeWarn1:"1 minute remaining — time is almost up!",
+    timesUp:"Time's up! Submitting your test…",
+    selectHint:"Select an answer to continue",
+    nextBtn:"Next",
+    submitBtn:"Submit Test",
+    questionOf:"Question {n} of {t}",
+    secureLabel:"SECURE SESSION",
+    totalScore:"Total Score",
+    correct:"Correct",
+    wrong:"Wrong",
+    accuracy:"Accuracy",
+    breakdown:"Question Breakdown",
+    saveResult:"Save Result",
+    close:"Close",
+    restrictionTitle:"Access Restricted",
+    restriction:"Your account has been restricted from accessing this test.",
+  },
+  khmer: {
+    loginTitle:"ប្រព័ន្ធចូលប្រឡង",
+    loginFooter:"ការត្រួតពិនិត្យសកម្ម · វគ្គសុវត្ថិភាព",
+    integrityTitle:"គោលការណ៍ភាពស្មោះត្រង់",
+    integritySub:"សូមអានដោយប្រុងប្រយ័ត្ន",
+    integrityItems:[
+      {icon:"fa-eye",        title:"ត្រួតពិនិត្យអេក្រង់",   desc:"ការផ្លាស់ប្តូរផ្ទាំងត្រូវបានកត់ត្រា"},
+      {icon:"fa-copy",       title:"គ្មានការចម្លង",          desc:"ការ Copy/Paste ត្រូវបានទប់ស្កាត់"},
+      {icon:"fa-clock",      title:"ម៉ោងកំណត់ក្នុងមួយសំណួរ", desc:"សំណួរនីមួយៗមានពេលវេលាកំណត់"},
+      {icon:"fa-ban",        title:"ច្បាប់ ៣ ដង",             desc:"ការបំពាន ៣ ដង = ការបញ្ចប់ ១ ពិន្ទុ"},
+    ],
+    integrityConsent:"ដោយចុច <strong>ចាប់ផ្ដើមប្រឡង</strong> អ្នកទទួលស្គាល់ថាការត្រួតពិនិត្យសកម្មភាពកំពុងដំណើរការ ហើយចម្លើយទាំងអស់ជាស្នាដៃផ្ទាល់ខ្លួនរបស់អ្នក។",
+    cdLabel:"សូមអាន។ ចាប់ផ្ដើមក្នុង",
+    startBtn:"ចាប់ផ្ដើមប្រឡង",
+    agreeTitle:"កិច្ចព្រមព្រៀង",
+    agreeLabel:"ខ្ញុំបានអាន និងយល់ព្រមតាមលក្ខខណ្ឌ",
+    agreeBtn:"ខ្ញុំយល់ព្រម — ចាប់ផ្ដើម",
+    cancelBtn:"បោះបង់",
+    focusActive:"ការផ្តោតអារម្មណ៍",
+    warnTitle1:"ការផ្តោតអារម្មណ៍ត្រូវបានបំពាន",
+    warnMsg1:"អ្នកបានចាកចេញពីអេក្រង់ប្រឡង។ ការព្រមានទី ១ ក្នុង ៣។",
+    warnTitle2:"ការបំពានលើកទី ២",
+    warnMsg2:"ការផ្លាស់ប្តូរផ្ទាំងថ្មីត្រូវបានរកឃើញ។ ការព្រមានទី ២ ក្នុង ៣។",
+    warnTitle3:"ការព្រមានចុងក្រោយ",
+    warnMsg3:"ការបំពានបន្ទាប់នឹងបញ្ចប់ការប្រឡងរបស់អ្នកភ្លាមៗ ហើយពិន្ទុ = ០។",
+    returnBtn:"ត្រឡប់មកប្រឡង",
+    blockedTitle:"ការប្រឡងត្រូវបានបិទ",
+    blockedMsg:"ការប្រឡងរបស់អ្នកត្រូវបានបញ្ចប់ដោយសារការបំពានចំនួនច្រើន។",
+    consTitle:"ផលវិបាក",
+    c1:"ពិន្ទុ = ០",
+    c2:"ការប្រឡងត្រូវបានសម្គាល់ជាមិនត្រឹមត្រូវ",
+    c3:"ការបំពាននឹងត្រូវរាយការណ៍",
+    c4:"គ្មានការចាប់ផ្ដើមឡើងវិញ",
+    blockedFooter:"ការត្រួតពិនិត្យសកម្ម ពេញពេលប្រឡង។",
+    copyWarn:"ការចម្លង/បិទភ្ជាប់មិនត្រូវបានអនុញ្ញាតទេ។",
+    timeWarn15:"នៅសល់ ១៥ នាទី",
+    timeWarn5:"នៅសល់ ៥ នាទី — ពិនិត្យចម្លើយ",
+    timeWarn1:"នៅសល់ ១ នាទី — ពេលចិតជាប",
+    timesUp:"ពេលអស់! ការបញ្ជូនប្រឡង…",
+    selectHint:"ជ្រើសចម្លើយដើម្បីបន្ត",
+    nextBtn:"បន្ទាប់",
+    submitBtn:"ដាក់ការប្រឡង",
+    questionOf:"សំណួរ {n} ក្នុង {t}",
+    secureLabel:"វគ្គសុវត្ថិភាព",
+    totalScore:"ពិន្ទុសរុប",
+    correct:"ត្រឹមត្រូវ",
+    wrong:"ខុស",
+    accuracy:"ភាពត្រឹមត្រូវ",
+    breakdown:"លម្អិតសំណួរ",
+    saveResult:"រក្សាទុក",
+    close:"បិទ",
+    restrictionTitle:"ការចូលប្រើត្រូវបានដាក់កំហិត",
+    restriction:"គណនីរបស់អ្នកត្រូវបានដាក់កំហិត។",
+  }
+};
+
+function t(k) { return T[currentLanguage][k] || T.english[k] || k; }
+
+/* ============================================================
+   UTILITY — UNCHANGED
+============================================================ */
+function fixDropboxAudioUrl(url) {
+  if (!url) return '';
+  if (url.includes('raw=1')) return url;
+  url = url.replace(/([&?]dl=[01])/, '');
+  return url.includes('?') ? url + '&raw=1' : url + '?raw=1';
+}
+
+function formatName(name) {
+  if (!name) return '';
+  return name.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
+}
+
+function formatTime(s) {
+  const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), ss = s%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+}
+
+function fmtMs(ms) {
+  const s = Math.round(ms/1000);
+  return s < 60 ? `${s}s` : `${Math.floor(s/60)}m ${s%60}s`;
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+/* ============================================================
+   TOAST — UNCHANGED
+============================================================ */
+function showToast(msg, type='info') {
+  const c = document.getElementById('toastContainer');
+  const d = document.createElement('div');
+  const icon = type==='crit' ? 'fa-circle-xmark' : type==='warn' ? 'fa-triangle-exclamation' : type==='ok' ? 'fa-circle-check' : 'fa-circle-info';
+  d.className = `toast ${type}`;
+  d.innerHTML = `<i class="fas ${icon}"></i><div>${msg}</div>`;
+  c.appendChild(d);
+  setTimeout(() => { if(d.parentNode) d.remove(); }, 5000);
+}
+
+/* ============================================================
+   LANGUAGE — UNCHANGED
+============================================================ */
+function applyLanguage() {
+  document.getElementById('loginTitle').textContent = t('loginTitle');
+  document.getElementById('loginFooterText').textContent = t('loginFooter');
+  document.getElementById('integrityTitle').textContent = t('integrityTitle');
+  document.getElementById('integritySubtitle').textContent = t('integritySub');
+  document.getElementById('agreementTitle').textContent = t('agreeTitle');
+  document.getElementById('agreeLabel').textContent = t('agreeLabel');
+  document.getElementById('agreeBtn').textContent = t('agreeBtn');
+  document.getElementById('disagreeBtn').textContent = t('cancelBtn');
+  document.getElementById('answerHint').textContent = t('selectHint');
+  document.querySelector('#focusIndicator span').textContent = t('focusActive');
+  document.getElementById('restrictionTitle').textContent = t('restrictionTitle');
+  document.getElementById('integrityStartBtn').textContent = t('startBtn');
+  document.getElementById('lbl_totalScore').textContent = t('totalScore');
+  document.getElementById('lbl_correct').textContent = t('correct');
+  document.getElementById('lbl_wrong').textContent = t('wrong');
+  document.getElementById('lbl_accuracy').textContent = t('accuracy');
+  document.getElementById('lbl_breakdown').textContent = t('breakdown');
+  document.getElementById('screenshotBtn').innerHTML = `<i class="fas fa-camera"></i> ${t('saveResult')}`;
+  document.getElementById('closeScoreBtn').innerHTML = `<i class="fas fa-times"></i> ${t('close')}`;
+  document.getElementById('blockedTitle').textContent = t('blockedTitle');
+  document.getElementById('blockedMsg').textContent = t('blockedMsg');
+  document.getElementById('consequenceTitle').textContent = t('consTitle');
+  document.getElementById('c1').textContent = t('c1');
+  document.getElementById('c2').textContent = t('c2');
+  document.getElementById('c3').textContent = t('c3');
+  document.getElementById('c4').textContent = t('c4');
+  document.getElementById('blockedFooter').innerHTML = `<i class="fas fa-shield-alt"></i> ${t('blockedFooter')}`;
+  document.getElementById('focusReturnBtn').textContent = t('returnBtn');
+
+  document.querySelectorAll('.lang-opt').forEach(el => {
+    el.classList.toggle('active', el.dataset.lang === currentLanguage);
+  });
+
+  document.body.classList.toggle('khmer', currentLanguage === 'khmer');
+  localStorage.setItem('testLanguage', currentLanguage);
+  buildIntegrityScreen();
+  buildAgreementContent();
+}
+
+/* ============================================================
+   INTEGRITY SCREEN — UNCHANGED
+============================================================ */
+function buildIntegrityScreen() {
+  const items = t('integrityItems');
+  document.getElementById('integrityItems').innerHTML = items.map(it => `
+    <div class="integrity-item">
+      <div class="integrity-item-icon"><i class="fas ${it.icon}"></i></div>
+      <div class="integrity-item-text">
+        <strong>${it.title}</strong>
+        <span>${it.desc}</span>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('integrityConsent').innerHTML = t('integrityConsent');
+  document.getElementById('countdownLabel').innerHTML = `${t('cdLabel')} <strong id="cdNum">10</strong>s...`;
+}
+
+function showIntegrityScreen() {
+  document.getElementById('integrityScreen').classList.remove('hidden');
+  buildIntegrityScreen();
+
+  let cd = 10;
+  const btn = document.getElementById('integrityStartBtn');
+  btn.disabled = true;
+  btn.textContent = t('startBtn');
+
+  const interval = setInterval(() => {
+    cd--;
+    const el = document.getElementById('cdNum');
+    if (el) el.textContent = cd;
+    if (cd <= 0) {
+      clearInterval(interval);
+      btn.disabled = false;
+      document.getElementById('countdownLabel').textContent = '';
+    }
+  }, 1000);
+
+  btn.onclick = () => {
+    document.getElementById('integrityScreen').classList.add('hidden');
+    showAgreementPopup();
+  };
+}
+
+/* ============================================================
+   AGREEMENT — UNCHANGED
+============================================================ */
+function buildAgreementContent() {
+  document.getElementById('agreementContent').innerHTML = `
+    <p style="margin-bottom:1rem;color:var(--text)">Welcome to the IELTS-Style Speaking Test. Read and agree to all terms before proceeding.</p>
+    <h4>Test Rules</h4>
+    <ul>
+      <li>Duration: 60 minutes strict time limit</li>
+      <li>One attempt only — cannot be paused or restarted</li>
+      <li>Auto-scoring applied immediately after submission</li>
+      <li>Activity monitoring enabled throughout the test</li>
+      <li class="critical">Maximum 3 warnings for policy violations</li>
+      <li class="critical">3 violations = Test blocked, Score = 0, No retry</li>
+    </ul>
+    <h4>Academic Integrity</h4>
+    <ul>
+      <li>All responses must be your own original work</li>
+      <li>No external assistance permitted</li>
+      <li class="critical">Copy/paste and right-click are disabled</li>
+    </ul>
+    <h4>Technical Requirements</h4>
+    <ul>
+      <li>Stable internet connection required</li>
+      <li>Chrome, Firefox, or Edge recommended</li>
+      <li>Headphones required for audio questions</li>
+      <li class="critical">Do NOT switch tabs or windows</li>
+    </ul>
+  `;
+}
+
+function showAgreementPopup() {
+  document.getElementById('agreementOverlay').classList.remove('hidden');
+}
+
+/* ============================================================
+   LOGIN — UNCHANGED
+============================================================ */
+function login() {
+  studentId = document.getElementById('studentId').value.trim();
+  password  = document.getElementById('password').value.trim();
+
+  const errEl   = document.getElementById('loginError');
+  const loginBtn = document.getElementById('loginBtn');
+  errEl.style.display = 'none';
+  errEl.classList.remove('show');
+  loginBtn.disabled = true;
+  document.getElementById('loginLoading').style.display = 'flex';
+  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating…';
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams({action:'login', id:studentId, password})
+  })
+  .then(r => r.json())
+  .then(res => {
+    loginBtn.disabled = false;
+    document.getElementById('loginLoading').style.display = 'none';
+    loginBtn.textContent = 'Login';
+
+    if (res.success) {
+      const lc = document.getElementById('loginContainer');
+      lc.style.opacity = '0';
+      lc.style.transform = 'translateY(-16px)';
+      lc.style.transition = 'all 0.35s ease';
+      setTimeout(() => {
+        lc.classList.add('hidden');
+        lc.style.opacity = '';
+        lc.style.transform = '';
+
+        const name = formatName(res.name);
+        document.getElementById('studentName').textContent = name;
+        document.getElementById('studentIdDisplay').textContent = studentId;
+
+        const parts = name.split(' ');
+        const initials = parts.length >= 2
+          ? (parts[0][0]+parts[parts.length-1][0]).toUpperCase()
+          : name.substring(0,2).toUpperCase();
+        document.getElementById('avatar').textContent = initials;
+        document.getElementById('scoreAvatar').textContent = initials;
+        document.getElementById('scoreUserName').textContent = name;
+        document.getElementById('scoreUserId').textContent = studentId;
+
+        if (res.restriction?.toUpperCase() === 'YES') {
+          document.getElementById('restrictionMessage').textContent =
+            res.restrictionMessage || t('restriction');
+          document.getElementById('restrictionOverlay').classList.remove('hidden');
+        } else {
+          showIntegrityScreen();
+        }
+      }, 380);
+    } else {
+      showLoginError(res.message || 'Login failed');
+    }
+  })
+  .catch(() => {
+    loginBtn.disabled = false;
+    document.getElementById('loginLoading').style.display = 'none';
+    loginBtn.textContent = 'Login';
+    showLoginError('Network error. Please try again.');
+  });
+}
+
+function showLoginError(msg) {
+  const e = document.getElementById('loginError');
+  e.textContent = msg;
+  e.style.display = 'block';
+  e.classList.add('show');
+  e.style.animation = 'none';
+  setTimeout(() => { e.style.animation = 'shake 0.4s ease'; }, 10);
+}
+
+/* ============================================================
+   START TEST — UNCHANGED (new anti-cheat hooks added)
+============================================================ */
+function startTest() {
+  document.getElementById('studentBar').classList.remove('hidden');
+  document.getElementById('testArea').classList.remove('hidden');
+  document.getElementById('focusIndicator').classList.remove('hidden');
+  document.body.style.overflowY = 'hidden';
+  testRunning   = true;
+  startTime     = new Date();
+  frontEndStartMs = Date.now();
+
+  // [ANTI-CHEAT ADD] Start new detection layers
+  startDevToolsDetection();
+  initIdleDetection();
+  resetIdleTimer();
+
+  fetchTimerConfig().then(mins => {
+    testDuration = mins * 60;
+    timeLeft     = testDuration;
+    updateTimerDisplay();
+    startGlobalTimer();
+    fetchQuestions();
+  });
+}
+
+/* ============================================================
+   TIMER — UNCHANGED (uses Date.now() already for accuracy)
+============================================================ */
+function fetchTimerConfig() {
+  return fetch(`${SCRIPT_URL}?action=getTimerConfig`)
+    .then(r => r.json())
+    .then(d => d.success && d.timerMinutes ? parseInt(d.timerMinutes) : 60)
+    .catch(() => 60);
+}
+
+function startGlobalTimer() {
+  clearInterval(testTimer);
+  testTimer = setInterval(() => {
+    if (isTestBlocked) { clearInterval(testTimer); return; }
+    // Date.now() cross-check for accuracy (Feature #2 — already in original)
+    const elapsed = Math.floor((Date.now() - frontEndStartMs) / 1000);
+    timeLeft = Math.max(0, testDuration - elapsed);
+    updateTimerDisplay();
+    checkGlobalTimeWarnings();
+    if (timeLeft <= 0) {
+      clearInterval(testTimer);
+      showToast(t('timesUp'), 'crit');
+      setTimeout(submitTest, 1500);
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const el   = document.getElementById('timerDisplay');
+  const fill = document.getElementById('progressFill');
+  el.textContent = formatTime(timeLeft);
+  const pct = (timeLeft / testDuration) * 100;
+  fill.style.width = pct + '%';
+  el.className = '';
+  fill.className = 'progress-fill';
+  if (timeLeft <= 60)  { el.classList.add('crit'); fill.classList.add('crit'); }
+  else if (timeLeft <= 300) { el.classList.add('warn'); fill.classList.add('warn'); }
+}
+
+let warned15 = false, warned5 = false, warned1 = false;
+function checkGlobalTimeWarnings() {
+  if (timeLeft <= 900 && !warned15) { warned15 = true; showToast(t('timeWarn15'), 'warn'); }
+  if (timeLeft <= 300 && !warned5)  { warned5  = true; showToast(t('timeWarn5'),  'warn'); }
+  if (timeLeft <= 60  && !warned1)  { warned1  = true; showToast(t('timeWarn1'),  'crit'); }
+}
+
+/* ============================================================
+   FETCH QUESTIONS + SHUFFLE — UNCHANGED
+============================================================ */
+function fetchQuestions() {
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams({action:'fetchQuestions', id:studentId, password})
+  })
+  .then(r => r.json())
+  .then(res => {
+    if (res.success && Array.isArray(res.questions)) {
+      const valid = res.questions.filter(q => q.question && q.options && q.options.length > 0);
+      shuffledQuestions = shuffle(valid).map(q => {
+        const opts = q.options.map((o, i) => ({ text: o, originalIndex: i }));
+        const shuffledOpts = shuffle(opts);
+        return { ...q, options: shuffledOpts.map(o => o.text), _optMap: shuffledOpts };
+      });
+      allQuestions       = shuffledQuestions;
+      answers            = new Array(allQuestions.length).fill('');
+      questionStartTimes = new Array(allQuestions.length).fill(0);
+      questionDurations  = new Array(allQuestions.length).fill(0);
+      currentQIndex = 0;
+      renderQuestion(0);
+    } else {
+      document.getElementById('questionHolder').innerHTML =
+        '<p style="color:var(--muted);text-align:center;padding:2rem">No questions found.</p>';
+    }
+  })
+  .catch(() => {
+    document.getElementById('questionHolder').innerHTML =
+      '<p style="color:var(--danger);text-align:center;padding:2rem">Error loading questions.</p>';
+  });
+}
+
+/* ============================================================
+   RENDER ONE QUESTION — UNCHANGED
+============================================================ */
+function renderQuestion(idx) {
+  if (idx >= allQuestions.length) {
+    renderSubmitScreen();
+    return;
+  }
+
+  currentQIndex = idx;
+  questionStartTimes[idx] = Date.now();
+
+  // [ANTI-CHEAT ADD] Reset idle timer on new question
+  resetIdleTimer();
+
+  const q     = allQuestions[idx];
+  const qNum  = idx + 1;
+  const total = allQuestions.length;
+
+  document.getElementById('stepCounter').textContent =
+    t('questionOf').replace('{n}', qNum).replace('{t}', total);
+  document.getElementById('stepsFill').style.width = (qNum / total * 100) + '%';
+
+  const isDrag    = q.type && q.type.toLowerCase() === 'dragdrop';
+  const audioHtml = q.audio ? renderAudioPlayer(q, idx) : '';
+
+  document.getElementById('questionHolder').innerHTML = `
+    <div class="question-card">
+      <div class="question-number"><div class="q-dot"></div>QUESTION ${qNum}</div>
+      <div class="question-text">${q.question}</div>
+      ${audioHtml}
+      <div class="options-container" id="optsCont${idx}">
+        ${isDrag ? renderDragDrop(q, idx) : renderRadio(q, idx)}
+      </div>
+    </div>
+  `;
+
+  if (!isDrag) {
+    document.querySelectorAll(`input[name="q${idx}"]`).forEach(r => {
+      r.addEventListener('change', () => {
+        answers[idx] = r.value;
+        document.querySelectorAll(`[name="q${idx}"]`).forEach(rb => {
+          rb.closest('.option').classList.toggle('selected', rb === r);
+          rb.closest('.option').classList.add('locked');
+        });
+        enableNext();
+        resetIdleTimer(); // [ANTI-CHEAT ADD] answer = activity
+      });
+    });
+  }
+
+  const nav    = document.getElementById('questionNav');
+  const isLast = (idx === allQuestions.length - 1);
+  nav.innerHTML = `
+    <span class="skipped-label" id="skippedLabel"></span>
+    <button class="nav-btn ${isLast ? 'submit-final' : 'next'}" id="nextBtn" disabled>
+      ${isLast ? `<i class="fas fa-paper-plane"></i> ${t('submitBtn')}` : `${t('nextBtn')} <i class="fas fa-arrow-right"></i>`}
+    </button>
+  `;
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (isLast) submitTest();
+    else        advanceQuestion();
+  });
+
+  document.getElementById('answerHint').textContent = t('selectHint');
+  if (isDrag) initDragDrop(idx);
+  startQTimer(idx);
+  updateBehaviorDisplay(qNum, total);
+}
+
+function renderRadio(q, idx) {
+  return q.options.map((opt, i) => `
+    <div class="option" onclick="this.querySelector('input').click()">
+      <input type="radio" name="q${idx}" value="${String.fromCharCode(65+i)}" id="q${idx}o${i}">
+      <span class="opt-label">${String.fromCharCode(65+i)}.</span>
+      <label for="q${idx}o${i}" style="cursor:pointer;flex:1">${opt}</label>
+    </div>
+  `).join('');
+}
+
+function renderDragDrop(q, idx) {
+  return `
+    <div class="drag-drop-options" id="ddOpts${idx}">
+      ${q.options.map((opt,i) => `
+        <div class="drag-option" draggable="true" data-value="${String.fromCharCode(65+i)}">
+          <span class="opt-label">${String.fromCharCode(65+i)}.</span> ${opt}
+        </div>
+      `).join('')}
+    </div>
+    <div class="drag-drop-target" id="ddTarget${idx}" data-q="${idx}">
+      <span style="color:var(--muted)">Drop your answer here</span>
+    </div>
+    <input type="hidden" id="ddVal${idx}" value="">
+  `;
+}
+
+function renderAudioPlayer(q, idx) {
+  return `
+    <div class="audio-container">
+      <button class="audio-btn" id="audioBtn${idx}" onclick="playAudio('${q.audio}',${idx});return false;">
+        <i class="fas fa-play" id="audioIcon${idx}"></i>
+      </button>
+      <div style="flex:1">
+        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:4px">Audio Recording</div>
+        <div style="height:3px;background:var(--border);border-radius:2px;overflow:hidden">
+          <div style="height:100%;background:var(--accent);width:0%;transition:width 0.5s" id="audioProgress${idx}"></div>
+        </div>
+      </div>
+      <span id="audioTime${idx}" style="font-family:var(--mono);font-size:0.78rem;color:var(--muted)">0:00</span>
+    </div>
+  `;
+}
+
+function initDragDrop(idx) {
+  const target = document.getElementById(`ddTarget${idx}`);
+  if (!target) return;
+  target.addEventListener('dragover',  e => { e.preventDefault(); target.classList.add('active'); });
+  target.addEventListener('dragleave', () => target.classList.remove('active'));
+  target.addEventListener('drop', e => {
+    e.preventDefault();
+    target.classList.remove('active');
+    const val = e.dataTransfer.getData('text/plain');
+    if (val) {
+      answers[idx] = val;
+      document.getElementById(`ddVal${idx}`).value = val;
+      target.classList.add('has-item');
+      target.innerHTML = `<span style="color:var(--correct);font-weight:600">${val} selected</span>`;
+      enableNext();
+    }
+  });
+  document.querySelectorAll(`#ddOpts${idx} .drag-option`).forEach(opt => {
+    opt.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', opt.dataset.value); opt.style.opacity='0.5'; });
+    opt.addEventListener('dragend',   () => { opt.style.opacity=''; });
+  });
+}
+
+function enableNext() {
+  const btn = document.getElementById('nextBtn');
+  if (btn) {
+    btn.disabled = false;
+    document.getElementById('answerHint').textContent = '';
+  }
+}
+
+function advanceQuestion() {
+  if (questionStartTimes[currentQIndex]) {
+    questionDurations[currentQIndex] = Date.now() - questionStartTimes[currentQIndex];
+  }
+  clearQTimer();
+  renderQuestion(currentQIndex + 1);
+}
+
+/* ============================================================
+   PER-QUESTION TIMER — UNCHANGED
+============================================================ */
+let qTimeLeft = QUESTION_TIME;
+
+function startQTimer(qIdx) {
+  clearQTimer();
+  qTimeLeft = QUESTION_TIME;
+  updateQTimerUI(qTimeLeft);
+  qTimerInterval = setInterval(() => {
+    qTimeLeft--;
+    updateQTimerUI(qTimeLeft);
+    if (qTimeLeft <= 0) {
+      clearQTimer();
+      questionDurations[qIdx] = Date.now() - questionStartTimes[qIdx];
+      showToast('Time up for this question — moving on.', 'warn');
+      setTimeout(() => {
+        const isLast = (currentQIndex === allQuestions.length - 1);
+        if (isLast) submitTest();
+        else renderQuestion(currentQIndex + 1);
+      }, 800);
+    }
+  }, 1000);
+}
+
+function clearQTimer() { clearInterval(qTimerInterval); }
+
+function updateQTimerUI(s) {
+  const fill  = document.getElementById('qTimerFill');
+  const count = document.getElementById('qTimerCount');
+  if (!fill || !count) return;
+  const pct = (s / QUESTION_TIME) * 100;
+  fill.style.width   = pct + '%';
+  count.textContent  = `${s}s`;
+  const cls = s <= 5 ? 'crit' : s <= 10 ? 'warn' : '';
+  fill.className  = `q-timer-fill ${cls}`;
+  count.className = `q-timer-count ${cls}`;
+}
+
+/* ============================================================
+   FINAL SUBMIT SCREEN — UNCHANGED
+============================================================ */
+function renderSubmitScreen() {
+  clearQTimer();
+  document.getElementById('qTimerRow').style.display = 'none';
+  document.getElementById('stepCounter').textContent = 'All questions answered';
+  document.getElementById('stepsFill').style.width = '100%';
+
+  document.getElementById('questionHolder').innerHTML = `
+    <div class="question-card" style="text-align:center;padding:3rem 2rem">
+      <i class="fas fa-clipboard-check" style="font-size:2.8rem;color:var(--accent);margin-bottom:1.2rem"></i>
+      <h2 style="margin-bottom:0.6rem;font-size:1.3rem">All Questions Answered</h2>
+      <p style="color:var(--muted);font-size:0.9rem">Review your answers or submit when ready.</p>
+    </div>
+  `;
+
+  document.getElementById('questionNav').innerHTML = `
+    <span></span>
+    <button class="nav-btn submit-final" id="nextBtn">
+      <i class="fas fa-paper-plane"></i> ${t('submitBtn')}
+    </button>
+  `;
+
+  document.getElementById('nextBtn').addEventListener('click', submitTest);
+  document.getElementById('answerHint').textContent = '';
+}
+
+/* ============================================================
+   BEHAVIOR DISPLAY — UNCHANGED
+============================================================ */
+function updateBehaviorDisplay(qNum, total) {
+  document.getElementById('behaviorDisplay').textContent =
+    `Q ${qNum}/${total} · T:${tabSwitchCount} · CP:${copyPasteCount}`;
+}
+
+/* ============================================================
+   ANTI-CHEAT #1 — FOCUS MODE — UNCHANGED
+============================================================ */
+function initFocusMode() {
+  document.addEventListener('visibilitychange', () => {
+    if (!testRunning || isTestBlocked) return;
+    if (document.hidden) { tabSwitchCount++; handleViolation(); }
+  });
+  window.addEventListener('blur', () => {
+    if (!testRunning || isTestBlocked) return;
+    tabSwitchCount++; handleViolation();
+  });
+}
+
+function handleViolation() {
+  violationCount++;
+  updateWarningCounter();
+  updateAnticheatStatus(violationCount >= 3 ? 'crit' : 'warn'); // [ENHANCED] update badge
+  if (violationCount >= 3) { showFocusOverlay(3); setTimeout(blockTest, 4000); }
+  else                      { showFocusOverlay(violationCount); }
+}
+
+function showFocusOverlay(n) {
+  const box   = document.getElementById('focusBox');
+  const title = document.getElementById('focusTitle');
+  const msg   = document.getElementById('focusMsg');
+  const ret   = document.getElementById('focusReturnBtn');
+
+  for (let i=1; i<=3; i++) {
+    const dot = document.getElementById(`vd${i}`);
+    if (dot) dot.classList.toggle('filled', i <= n);
+  }
+
+  box.classList.toggle('danger-mode', n >= 3);
+  title.textContent = t(`warnTitle${n}`);
+  msg.textContent   = t(`warnMsg${n}`);
+  ret.textContent   = n < 3 ? t('returnBtn') : '⚠ Final Warning';
+
+  document.getElementById('focusOverlay').classList.remove('hidden');
+
+  if (n < 3) {
+    ret.onclick = () => { document.getElementById('focusOverlay').classList.add('hidden'); };
+    setTimeout(() => { document.getElementById('focusOverlay').classList.add('hidden'); }, 6000);
+  } else {
+    ret.style.display = 'none';
+  }
+}
+
+function updateWarningCounter() {
+  const el   = document.getElementById('warningCounter');
+  const disp = document.getElementById('warningCountDisplay');
+  if (violationCount > 0) {
+    el.classList.remove('hidden');
+    disp.textContent = violationCount;
+    el.classList.toggle('w3', violationCount >= 3);
+  }
+}
+
+/* ============================================================
+   ANTI-CHEAT #2 — COPY/PASTE — UNCHANGED
+============================================================ */
+function initCopyProtection() {
+  ['copy','cut','contextmenu','selectstart'].forEach(evt => {
+    document.addEventListener(evt, e => {
+      if (!testRunning) return;
+      if (e.target.classList.contains('allow-select')) return;
+      e.preventDefault(); e.stopPropagation();
+    }, true);
+  });
+
+  document.addEventListener('paste', e => {
+    if (!testRunning) return;
+    if (e.target.classList.contains('allow-select')) return;
+    e.preventDefault();
+    copyPasteCount++;
+    showToast(t('copyWarn'), 'warn');
+    updateBehaviorDisplay(currentQIndex+1, allQuestions.length);
+  }, true);
+}
+
+/* ============================================================
+   BLOCK TEST — UNCHANGED
+============================================================ */
+function blockTest() {
+  isTestBlocked = true;
+  testRunning   = false;
+  clearInterval(testTimer);
+  clearQTimer();
+  clearInterval(devToolsCheckInterval); // [ANTI-CHEAT ADD] stop DevTools check
+  document.getElementById('focusOverlay').classList.add('hidden');
+  document.getElementById('testBlockedOverlay').classList.remove('hidden');
+  document.querySelectorAll('button, input').forEach(el => { el.disabled = true; });
+  setTimeout(submitTest, 3000);
+}
+
+/* ============================================================
+   SUBMIT TEST — UNCHANGED
+============================================================ */
+function submitTest() {
+  if (!isTestBlocked && !testRunning) return;
+  clearInterval(testTimer);
+  clearQTimer();
+  testRunning = false;
+  endTime = new Date();
+
+  const submitMessages = [
+    '⏳ Checking your answers…',
+    '📊 Calculating score…',
+    '🔍 Reviewing each question…',
+    '📝 Finalising results…',
+  ];
+
+  let mi = 0;
+  document.getElementById('questionHolder').innerHTML = `
+    <div class="question-card" style="text-align:center;padding:3rem 2rem">
+      <div class="spinner" style="margin:0 auto 1.5rem"></div>
+      <div id="submitMsg" style="color:var(--muted);font-size:0.93rem">${submitMessages[0]}</div>
+    </div>
+  `;
+
+  const interval = setInterval(() => {
+    mi = (mi+1) % submitMessages.length;
+    const el = document.getElementById('submitMsg');
+    if (el) el.textContent = submitMessages[mi];
+  }, 2000);
+
+  const finalAnswers = allQuestions.map((q, i) => answers[i] || '');
+
+  setTimeout(() => {
+    clearInterval(interval);
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({
+        action: 'submitTest',
+        id: studentId,
+        password,
+        answers: JSON.stringify(finalAnswers),
+        behaviorLog: JSON.stringify({
+          tabSwitches:        tabSwitchCount,
+          copyPasteAttempts:  copyPasteCount,
+          violationCount,
+          questionDurations,
+          startTime:          startTime?.toISOString(),
+          endTime:            endTime?.toISOString()
+        })
+      })
+    })
+    .then(r => r.json())
+    .then(res => {
+      if (res.success && Array.isArray(res.results)) showResults(res);
+      else showToast(res.message || 'Submission failed.', 'warn');
+    })
+    .catch(() => showToast('Network error during submission.', 'crit'));
+  }, 5000);
+}
+
+/* ============================================================
+   RESULTS — ENHANCED
+   Now shows: user answer, correct answer, clear visual indicators
+============================================================ */
+function showResults(res) {
+  const total   = allQuestions.length;
+  const correct = res.results.filter(r => r?.isCorrect).length;
+  const wrong   = total - correct;
+  const acc     = total > 0 ? Math.round(correct/total*100) : 0;
+
+  document.getElementById('finalScore').textContent    = res.score || 0;
+  document.getElementById('correctAnswers').textContent = correct;
+  document.getElementById('wrongAnswers').textContent   = wrong;
+  document.getElementById('accuracyRate').textContent   = acc + '%';
+
+  // ENHANCED: Table-style breakdown with user answer + correct answer
+  let html = '';
+  allQuestions.forEach((q, i) => {
+    const r          = res.results[i];
+    const isCorrect  = r?.isCorrect;
+    const userAns    = answers[i] || '—';
+    const correctAns = r?.correctAnswer || '—';
+    const skipped    = !answers[i];
+
+    let userBadge, resultCell;
+    if (skipped) {
+      userBadge  = `<span class="ans-badge skipped">—</span>`;
+      resultCell = `<span style="color:var(--muted);font-family:var(--mono);font-size:0.78rem">Skipped</span>`;
+    } else if (isCorrect) {
+      userBadge  = `<span class="ans-badge user-correct"><i class="fas fa-check status-icon"></i>${userAns}</span>`;
+      resultCell = `<span style="color:var(--correct);font-weight:700;font-size:0.88rem">✓ Correct</span>`;
+    } else {
+      userBadge  = `<span class="ans-badge user-wrong"><i class="fas fa-times status-icon"></i>${userAns}</span>`;
+      resultCell = `<span style="color:var(--danger);font-weight:700;font-size:0.88rem">✗ Wrong</span>`;
+    }
+
+    const correctBadge = `<span class="ans-badge correct-ans">${correctAns}</span>`;
+
+    html += `
+      <tr class="breakdown-row ${isCorrect ? 'correct' : 'wrong'}">
+        <td>Q${i+1}</td>
+        <td>${userBadge}</td>
+        <td>${correctBadge}</td>
+        <td>${resultCell}</td>
+      </tr>`;
+  });
+  document.getElementById('breakdownList').innerHTML = html;
+
+  // Behaviour report
+  const durMs = questionDurations.filter(d=>d>0);
+  const avgMs = durMs.length ? Math.round(durMs.reduce((a,b)=>a+b,0)/durMs.length) : 0;
+  const testMs = endTime && startTime ? endTime - startTime : 0;
+
+  document.getElementById('br_tabs').textContent    = tabSwitchCount;
+  document.getElementById('br_copy').textContent    = copyPasteCount;
+  document.getElementById('br_avgtime').textContent = fmtMs(avgMs);
+  document.getElementById('br_duration').textContent = fmtMs(testMs);
+
+  document.getElementById('scoreModal').classList.remove('hidden');
+
+  // ENHANCED: Auto-trigger screenshot after 1.5s
+  setTimeout(captureResult, 1500);
+}
+
+/* ============================================================
+   AUDIO PLAYER — UNCHANGED
+============================================================ */
+function playAudio(url, idx) {
+  const btn  = document.getElementById(`audioBtn${idx}`);
+  const icon = document.getElementById(`audioIcon${idx}`);
+  const prog = document.getElementById(`audioProgress${idx}`);
+  const time = document.getElementById(`audioTime${idx}`);
+
+  icon.className = 'fas fa-spinner fa-spin';
+
+  setTimeout(() => {
+    url = fixDropboxAudioUrl(url);
+    if (currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      if (currentAudioIndex !== null) {
+        const pb = document.getElementById(`audioBtn${currentAudioIndex}`);
+        const pi = document.getElementById(`audioIcon${currentAudioIndex}`);
+        if (pb) pb.classList.remove('playing');
+        if (pi) pi.className = 'fas fa-play';
+      }
+    }
+
+    currentAudio = new Audio(url);
+    currentAudioIndex = idx;
+    btn.classList.add('playing');
+    icon.className = 'fas fa-pause';
+
+    currentAudio.addEventListener('timeupdate', () => {
+      if (prog && currentAudio.duration) prog.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + '%';
+      if (time) {
+        const m = Math.floor(currentAudio.currentTime/60);
+        const s = Math.floor(currentAudio.currentTime%60).toString().padStart(2,'0');
+        time.textContent = `${m}:${s}`;
+      }
+    });
+
+    currentAudio.addEventListener('ended', () => {
+      btn.classList.remove('playing');
+      icon.className = 'fas fa-play';
+      if (prog) prog.style.width = '0%';
+    });
+
+    currentAudio.addEventListener('error', () => {
+      btn.classList.remove('playing');
+      icon.className = 'fas fa-play';
+      showToast('Audio error — please try again.', 'warn');
+    });
+
+    currentAudio.play().catch(() => {
+      btn.classList.remove('playing');
+      icon.className = 'fas fa-play';
+      showToast('Could not play audio.', 'warn');
+    });
+  }, 400);
+}
+
+/* ============================================================
+   SCREENSHOT / SAVE — ENHANCED
+   - Captures only score modal
+   - High resolution (scale: 2)
+   - filename: result_timestamp.png
+============================================================ */
+function captureResult() {
+  if (typeof html2canvas === 'undefined') {
+    showToast('Screenshot library not loaded yet. Try again in a moment.', 'warn');
+    return;
+  }
+
+  const target = document.querySelector('.score-modal');
+  if (!target) return;
+
+  showToast('Preparing screenshot…', 'info');
+
+  // Temporarily remove overflow:hidden so full content is captured
+  const origOverflow = target.style.maxHeight;
+  target.style.maxHeight = 'none';
+  target.style.overflow  = 'visible';
+
+  html2canvas(target, {
+    scale:           2,
+    useCORS:         true,
+    allowTaint:      true,
+    backgroundColor: '#0f1a2e',
+    logging:         false,
+    scrollX:         0,
+    scrollY:         -window.scrollY,
+    windowWidth:     target.scrollWidth,
+    windowHeight:    target.scrollHeight,
+  }).then(canvas => {
+    // Restore
+    target.style.maxHeight = origOverflow;
+    target.style.overflow  = '';
+
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const link = document.createElement('a');
+    link.download = `result_${timestamp}.png`;
+    link.href     = canvas.toDataURL('image/png');
+    link.click();
+    showToast('Result saved as PNG!', 'ok');
+  }).catch(err => {
+    target.style.maxHeight = origOverflow;
+    target.style.overflow  = '';
+    console.error('Screenshot error:', err);
+    showToast('Screenshot failed. Please try again.', 'warn');
+  });
+}
+
+/* ============================================================
+   DOMContentLoaded — INIT
+============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  applyLanguage();
+
+  document.getElementById('langToggle').addEventListener('click', e => {
+    const opt = e.target.closest('.lang-opt');
+    if (!opt) return;
+    currentLanguage = opt.dataset.lang;
+    applyLanguage();
+  });
+
+  document.getElementById('agreeBtn').addEventListener('click', () => {
+    if (document.getElementById('agreeCheckbox').checked) {
+      document.getElementById('agreementOverlay').classList.add('hidden');
+      startTest();
+    } else {
+      showToast('You must agree to all terms to continue.', 'warn');
+    }
+  });
+
+  document.getElementById('disagreeBtn').addEventListener('click', () => {
+    document.getElementById('agreementOverlay').classList.add('hidden');
+    document.getElementById('integrityScreen').classList.add('hidden');
+    document.getElementById('loginContainer').classList.remove('hidden');
+  });
+
+  document.getElementById('restrictionOkBtn').addEventListener('click', () => {
+    document.getElementById('restrictionOverlay').classList.add('hidden');
+    document.getElementById('loginContainer').classList.remove('hidden');
+  });
+
+  document.getElementById('screenshotBtn').addEventListener('click', captureResult);
+  document.getElementById('closeScoreBtn').addEventListener('click', () => {
+    document.getElementById('scoreModal').classList.add('hidden');
+  });
+
+  // Keyboard security — UNCHANGED
+  document.addEventListener('keydown', e => {
+    if (!testRunning) return;
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) {
+      e.preventDefault();
+      showToast('Developer tools are disabled during the test.', 'warn');
+    }
+    if (e.ctrlKey && e.key === 'u') e.preventDefault();
+    resetIdleTimer(); // [ANTI-CHEAT ADD] keydown = activity
+  });
+
+  // Init existing anti-cheat
+  initFocusMode();
+  initCopyProtection();
+
+  // [ANTI-CHEAT ADD] Init fullscreen detection
+  initFullscreenDetection();
+});
+
+/* ============================================================
+   Load html2canvas — UNCHANGED
+============================================================ */
+if (typeof html2canvas === 'undefined') {
+  const s = document.createElement('script');
+  s.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+}
+</script>
+
+</body>
+</html>
